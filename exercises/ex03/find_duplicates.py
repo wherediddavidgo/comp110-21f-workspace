@@ -2,22 +2,21 @@
 
 __author__ = "730407005"
 
-i: int = 1
-c: int = 0
+i: int = 0
+j: int = 0
 dups: bool = False
 word: str = input("Enter a word: ")
-ichar: str
-cchar: str
 
 while i < len(word):
-    ichar = word[i]
-    cchar = word[c]
-    while c < len(word):
-        if ichar == cchar:
-            dups = True
-            c = c + 1
+    j = 0
+    while j < len(word):
+        if j == i:
+            j = j + 1
         else:
-            c = c + 1
-    c = 0
+            if word[i] == word[j]:
+                dups = True
+        j = j + 1
     i = i + 1
-print("Found duplicates: " + str(dups))
+
+
+print("Found duplicate: " + str(dups))
