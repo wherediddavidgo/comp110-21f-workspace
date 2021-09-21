@@ -5,7 +5,7 @@ points: int = 0
 choice: int
 NAMED_CONSTANT: str = "\U00000000"
 def main() -> None:
-    """"""
+    """main controls the flow of the game"""
     global points
     greet()
     game_loop: int = int(input("What would you like to do? 1 to play, 2 to quit "))
@@ -28,11 +28,13 @@ def main() -> None:
     #quit
 
 def greet() -> None:
+    """gets player's name so it can be included in computer interaction with player"""
     print("Are you more David Go or Adin Zimmerman?")
     global player
     player = input("What is your name? ")
 
 def scorer(choice: int) -> int:
+    """checks whether answer is more David-like or Adin-like and adds or subtracts points accordingly"""
     global points
     if choice == 2:
         points += 1
@@ -45,6 +47,7 @@ def scorer(choice: int) -> int:
     return(points)
 
 def questionGenerator() -> None:
+    """randomly selects a question from a list"""
     from random import randint
     question: str = ""
     rng: int = randint(1, 7)
