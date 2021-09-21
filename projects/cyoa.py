@@ -1,7 +1,11 @@
+"""A test to decide whether the player is more like Adin Zimmerman or David Go."""
+__author__: str = "730407005"
 __name__: str = "__main__"
 points: int = 0
+choice: int
 NAMED_CONSTANT: str = "\U00000000"
 def main() -> None:
+    """"""
     global points
     greet()
     game_loop: int = int(input("What would you like to do? 1 to play, 2 to quit "))
@@ -22,16 +26,11 @@ def main() -> None:
         while game_loop != 1 and game_loop != 2:
             game_loop = int(input("That's not a valid choice. Please select again. 1 to play, 2 to quit "))
     #quit
-        
-    
-
 
 def greet() -> None:
     print("Are you more David Go or Adin Zimmerman?")
     global player
     player = input("What is your name? ")
-choice: int
-
 
 def scorer(choice: int) -> int:
     global points
