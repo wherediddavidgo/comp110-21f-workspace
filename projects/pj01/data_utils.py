@@ -3,6 +3,7 @@
 __author__ = "123456789"
 
 from csv import DictReader
+from typing import ItemsView
 
 def read_csv_rows(filename: str) -> list[dict[str, str]]:
     """Reads csv file as list of dictionaries."""
@@ -24,7 +25,7 @@ def column_values(rows: list[dict[str, str]], field: str) -> list[str]:
     column: list[str] = []
 
     for row in rows:
-        column.append(row[field])
+        column.append(row["difficulty"])
     
     return column
 
@@ -93,3 +94,60 @@ def count(list_in: list[str]) -> dict[str, int]:
             dict_out[item] += 1
 
     return dict_out
+
+
+def create_filter(column_in: list[str], sel: str) -> list[int]:
+    """Returns list indices of every item of a certain type."""
+    indices: list[int] = []
+    i: int = 0
+
+    for item in column_in:
+        if item == sel:
+            indices.append(i)
+        i += 1
+
+    return indices
+
+
+def filtered(column_in: list[str], filter_list: list[int]) -> list[str]:
+    """Uses list of indices from create_filter and returns all items in a list with those indices."""
+    column_out: list[str] = []
+    i: int = 0
+
+    while i < len(filter_list):
+        column_out.append(column_in[filter_list[i]])
+        i += 1
+
+    return column_out
+
+
+def averages(columns_in: dict[str, list[str]], key_type: str, value_type: str) -> dict[str, float]:
+    """Takes columnar data, converts columns to integers, and returns dictionary of keys and average values."""
+    averages: dict[str, float] = {}
+    scores: dict[str, list[str]] = {}
+    scores_int: dict[str, list[int]] = {}
+    total: int = 0
+    int_column: list[int] = []
+
+
+    for row in columns_in[key_type]:
+        if row not in scores:
+            filter_list: list[int] = create_filter(columns_in[key_type], row)
+            scores[row] = filtered(columns_in[value_type], filter_list)
+    
+    for column in scores:
+        for i in scores[column]:
+            if len(scores[column]) > 5:
+                int_column.append(int(i))
+                scores_int[column] = int_column
+        int_column = []
+        # print(scores[column])
+
+
+    for column in scores_int:
+        for i in scores_int[column]:
+            total += i
+        averages[column] = total / len(scores_int[column])
+        total = 0
+
+    return averages
